@@ -9,12 +9,12 @@ use App\Models\Product;
 class ProductController extends Controller
 {
   
-public function index()
+    public function index()
 {
     return Product::with('category')->get();
 }
 
-public function store(Request $request)
+    public function store(Request $request)
 {
     $validated = $request->validate([
         'name_ar' => 'required|string',
@@ -30,5 +30,15 @@ public function store(Request $request)
 
     return response()->json(['message' => 'Product created successfully']);
 }
+
+    public function show($id)
+{
+    
+    $product = Product::findOrFail($id);
+    
+  
+    return view('product.show', compact('product'));
+}
+
 
 }
